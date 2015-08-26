@@ -43,7 +43,10 @@ public class QuoteClient {
 //             System.out.println("Usage: java QuoteClient <hostname>");
 //             return;
 //        }
-
+ 
+        
+        
+        
             // get a datagram socket
         DatagramSocket socket = new DatagramSocket();
 
