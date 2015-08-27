@@ -24,7 +24,14 @@ import java.util.logging.Logger;
 public class WaitServer {
 
     public static void main(String[] args) throws IOException {
-        ServerSocket ss = new ServerSocket(12345);
+        String ip = "localhost";
+        int port = 4321;
+        if (args.length == 2) {
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
+        }
+        ServerSocket ss = new ServerSocket();
+        ss.bind(new InetSocketAddress(ip, port));
         
         Socket s;
         while (true) {

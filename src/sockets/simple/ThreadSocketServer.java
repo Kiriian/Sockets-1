@@ -25,10 +25,14 @@ public class ThreadSocketServer {
     PrintWriter out;
     String line;
 
+    private ThreadSocketServer(ServerSocket ss) {
+       server=ss;
+    }
+
     public void listenSocket() {
 
         try {
-            server = new ServerSocket(4321);
+           
             while (true){
             client = server.accept();
             SocketWorker sw = new SocketWorker(client);
@@ -42,8 +46,17 @@ public class ThreadSocketServer {
         }
     }
 
-    public static void main(String[] args) {
-        ThreadSocketServer ss = new ThreadSocketServer();
-        ss.listenSocket();
+    public static void main(String[] args) throws IOException {
+         String ip = "localhost";
+        int port = 4321;
+        if (args.length == 2) {
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
+        }
+        ServerSocket ss = new ServerSocket();
+        ss.bind(new InetSocketAddress(ip, port));
+
+        ThreadSocketServer sos = new ThreadSocketServer(ss);
+        sos.listenSocket();
     }
 }

@@ -25,11 +25,14 @@ public class SocketServer {
     PrintWriter out;
     String line;
 
+    private SocketServer(ServerSocket ss) {
+        server = ss;
+    }
+
     public void listenSocket() {
 
         try {
-            InetAddress bind = InetAddress.getByName("localhost");
-            server = new ServerSocket(4321, 50, bind);
+
             client = server.accept();
             in = new BufferedReader(new InputStreamReader(
                     client.getInputStream()));
@@ -39,8 +42,8 @@ public class SocketServer {
             while (true) {
 
                 line = in.readLine();
-                System.out.println("Recieved from client: "+line);
-                    //Send data back to client
+                System.out.println("Recieved from client: " + line);
+                //Send data back to client
                 out.println(line);
             }
         } catch (IOException e) {
@@ -49,8 +52,17 @@ public class SocketServer {
         }
     }
 
-    public static void main(String[] args) {
-        SocketServer ss = new SocketServer();
-        ss.listenSocket();
+    public static void main(String[] args) throws IOException {
+        String ip = "localhost";
+        int port = 4321;
+        if (args.length == 2) {
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
+        }
+        ServerSocket ss = new ServerSocket();
+        ss.bind(new InetSocketAddress(ip, port));
+
+        SocketServer sos = new SocketServer(ss);
+        sos.listenSocket();
     }
 }
