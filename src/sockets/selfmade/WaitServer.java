@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ public class WaitServer {
 
     public static void main(String[] args) throws IOException {
         ServerSocket ss = new ServerSocket(12345);
+        
         Socket s;
         while (true) {
             s = ss.accept();
