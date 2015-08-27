@@ -60,8 +60,8 @@ public class SocketClient implements Runnable {
      port = Integer.parseInt(args[1]);
   }
 
-        Socket ss = new Socket();
-        ss.bind(new InetSocketAddress(ip, port));
+        Socket ss = new Socket(ip,port);
+        
         SocketClient sw = new SocketClient(ss);
         Thread t1 = new Thread(sw);
         t1.start();
